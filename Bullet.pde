@@ -5,11 +5,14 @@ class Bullet{
         x = _x;
         y = _y;
     }
-    boolean isTouched(float pX, float pY){
-        float d = sqrt((pX-x)*(pX-x) + (pY-y)*(pY-y));
-        if(d < 30){
-            kill();
-            return true;
+    boolean isTouched(Character c){
+        if(!c.isDead()){
+            float targetX = c.getX();
+            float targetY = c.getY();
+            float d = sqrt((targetX-x)*(targetX-x) + (targetY-y)*(targetY-y));
+            if(d < 30){
+                return true;
+            }
         }
         return false;
     }
@@ -20,19 +23,23 @@ class Bullet{
         return deadFlag;
     }
     void updatePosition(int shooter){
-        /* ToDo Player or Enemy? */
-        if(shooter == 0){
-            x += 30;
-        }else{
-            x -= 10;
+        if(!deadFlag){
+            /* ToDo Player or Enemy? */
+            if(shooter == 0){
+                x += 10;
+            }else{
+                x -= 10;
+            }
+            /* 画面外に出た弾を無効化 */
+            if(this.x < 0 || width < this.x) kill();
+            if(this.y < 0 || height < this.y) kill();
         }
-        /* 画面外に出た弾を無効化 */
-        if(this.x < 0 || width < this.x) kill();
-        if(this.y < 0 || height < this.y) kill();
     }
     void display(){
-        ellipseMode(CENTER);
-        fill(#FF0000);
-        ellipse(x, y, 10, 10);
+        if(!deadFlag){
+            ellipseMode(CENTER);
+            fill(#FF0000);
+            ellipse(x, y, 10, 10);
+        }
     }
 }

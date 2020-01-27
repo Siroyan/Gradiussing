@@ -1,13 +1,11 @@
 class Player extends Character{
-    Player(){
+    Player(float _x, float _y){
+        hp = 10;
+        spd = 8;
         characterImage = loadImage("./imgs/player.png");
         characterImage.resize(80, 80);
-    }
-    
-    void setPosition(float _x, float _y){
         x = _x;
         y = _y;
-        spd = 8;
     }
     
     void updatePosition(){

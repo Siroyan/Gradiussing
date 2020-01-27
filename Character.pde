@@ -1,12 +1,15 @@
 abstract class Character{
+    int hp;
+    boolean deadFlag = false;
     ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-    ArrayList<Bullet> tmpBullets = new ArrayList<Bullet>();
 
     PImage characterImage;
     float x, y, spd;
     
     void shotBullet(){
-        bullets.add(new Bullet(this.x, this.y));
+        if(!isDead()){
+            bullets.add(new Bullet(this.x, this.y));
+        }
     }
 
     void updateBullets(){
@@ -19,8 +22,24 @@ abstract class Character{
         bullets = tmpBullets;
     }
 
+    void hit(){
+        hp--;
+    }
+
+    void updateDeadOrAlive(){
+        if(this.hp == 0){
+            deadFlag = true;
+        }
+    }
+
+    boolean isDead(){
+        return deadFlag;
+    }
+
     void display(){
-        image(characterImage, x, y);
+        if(!this.isDead()){
+            image(characterImage, x, y);
+        }
     }
     
     float getX(){
