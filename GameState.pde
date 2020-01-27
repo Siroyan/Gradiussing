@@ -33,11 +33,13 @@ class GameState extends State{
             }
             /* Enemy Bullets */
             for(Bullet b:e.bullets){
-                b.display();
                 if(!b.isTouched(p.getX(), p.getY())){
                     b.updatePosition(1);
                 }
+                b.display();
             }
+
+            e.updateBullets();
             e.updatePosition();
             e.display();
         }
@@ -53,6 +55,7 @@ class GameState extends State{
             b.display();
         }
 
+        p.updateBullets();
         p.updatePosition();
         p.display();
         
